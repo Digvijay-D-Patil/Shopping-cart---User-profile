@@ -1,6 +1,7 @@
 package com.eshopping.profile.UserProfileService.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,16 @@ public class UserProfileServiceImpl implements UserProfileService {
 	// Get User Profile by Profile ID
 	@Override
 	public UserProfileDTO getByProfileId(int profileId) {
-		UserProfile profile = userProfileRepository.findById(profileId).get();
-		return convertEntityToDTO(profile); // Return profile or null if not found
+		Optional<UserProfile> byId = userProfileRepository.findById(profileId);
+
+		if (byId.isPresent()) {
+
+			UserProfile uProfile = byId.get();
+			return convertEntityToDTO(uProfile);
+		} else {
+			throw new ProfileNotFoundException("Profile not found with id: " + profileId);
+		}
+
 	}
 
 	// Update User Profile

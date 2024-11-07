@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eshopping.profile.UserProfileService.dto.UserProfileDTO;
 import com.eshopping.profile.UserProfileService.entity.UserProfile;
-import com.eshopping.profile.UserProfileService.exception.ProfileNotFoundException;
 import com.eshopping.profile.UserProfileService.service.UserProfileServiceImpl;
 
 import jakarta.validation.Valid;
@@ -60,11 +59,7 @@ public class UserProfileController {
 	@GetMapping("/{profileId}")
 	public ResponseEntity<UserProfileDTO> getUserProfileById(@PathVariable("profileId") int profileId) {
 		UserProfileDTO userProfile = userProfileService.getByProfileId(profileId);
-		if (userProfile != null) {
-			return new ResponseEntity<>(userProfile, HttpStatus.OK);
-		} else {
-			throw new ProfileNotFoundException("Profile not found with id: " + profileId);
-		}
+		return ResponseEntity.ok(userProfile);
 	}
 
 	// Endpoint to update User Profile
