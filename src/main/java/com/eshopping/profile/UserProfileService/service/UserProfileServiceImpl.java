@@ -44,6 +44,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	// Get all User Profiles
+
 	@Override
 	public List<UserProfileDTO> getAllProfiles() {
 		List<UserProfile> all = userProfileRepository.findAll();
@@ -68,12 +69,14 @@ public class UserProfileServiceImpl implements UserProfileService {
 	// Update User Profile
 	@Override
 	public void updateProfile(UserProfile userProfile) {
-		// Check if profile exists before updating
-		if (userProfileRepository.existsById(userProfile.getProfileId())) {
-			userProfileRepository.save(userProfile); // Save the updated profile
-		} else {
+
+		boolean profileExists = userProfileRepository.existsById(userProfile.getProfileId());
+
+		if (!profileExists) {
 			throw new ProfileNotFoundException("Profile not found with id: " + userProfile.getProfileId());
 		}
+
+		userProfileRepository.save(userProfile);
 	}
 
 	// Delete User Profile by Profile ID
@@ -95,6 +98,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public UserProfileDTO getByUserName(String userName) {
 		UserProfile byFullName = userProfileRepository.findByFullName(userName);
+
+		if (byFullName == null) { // If no profile is found with the given username
+			throw new ProfileNotFoundException("Profile not found with username: " + userName);
+		}
+
 		return convertEntityToDTO(byFullName);
 	}
 

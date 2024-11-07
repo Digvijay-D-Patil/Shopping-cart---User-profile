@@ -28,6 +28,7 @@ public class UserProfileController {
 	private UserProfileServiceImpl userProfileService;
 
 	// Endpoint to add a new Customer Profile
+
 	@PostMapping("/customer")
 	public ResponseEntity<UserProfileDTO> addNewCustomerProfile(@Valid @RequestBody UserProfile userProfile) {
 		UserProfileDTO createdProfile = userProfileService.addNewCustomerProfile(userProfile);
@@ -35,6 +36,7 @@ public class UserProfileController {
 	}
 
 	// Endpoint to add a new Merchant Profile
+
 	@PostMapping("/merchant")
 	public ResponseEntity<Void> addNewMerchantProfile(@Valid @RequestBody UserProfile userProfile) {
 		userProfileService.addNewMerchantProfile(userProfile);
@@ -48,7 +50,8 @@ public class UserProfileController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	// Endpoint to get all User Profiles
+	// get all User Profiles
+
 	@GetMapping("/all")
 	public ResponseEntity<List<UserProfileDTO>> getAllProfiles() {
 		List<UserProfileDTO> userProfiles = userProfileService.getAllProfiles();
