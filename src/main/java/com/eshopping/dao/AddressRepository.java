@@ -1,8 +1,8 @@
-package com.eshopping.profile.UserProfileService.dao;
+package com.eshopping.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eshopping.profile.UserProfileService.entity.Address;
+import com.eshopping.entity.Address;
 
 public interface AddressRepository extends JpaRepository<Address, Integer> {
 

@@ -1,4 +1,4 @@
-package com.eshopping.profile.UserProfileService.entity;
+package com.eshopping.entity;
 
 public enum RoleEnum {
 	CUSTOMER, MERCHANT, DELIVERY_AGENT;

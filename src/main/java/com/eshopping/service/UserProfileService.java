@@ -1,9 +1,9 @@
-package com.eshopping.profile.UserProfileService.service;
+package com.eshopping.service;
 
 import java.util.List;
 
-import com.eshopping.profile.UserProfileService.dto.UserProfileDTO;
-import com.eshopping.profile.UserProfileService.entity.UserProfile;
+import com.eshopping.dto.UserProfileDTO;
+import com.eshopping.entity.UserProfile;
 
 public interface UserProfileService {
 

@@ -1,4 +1,4 @@
-package com.eshopping.profile.UserProfileService.dto;
+package com.eshopping.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

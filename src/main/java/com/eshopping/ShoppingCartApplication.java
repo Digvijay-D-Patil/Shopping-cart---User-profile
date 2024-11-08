@@ -1,4 +1,4 @@
-package com.eshopping.profile.UserProfileService;
+package com.eshopping;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

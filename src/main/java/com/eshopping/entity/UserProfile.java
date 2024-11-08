@@ -1,50 +1,65 @@
-package com.eshopping.profile.UserProfileService.dto;
+package com.eshopping.entity;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import com.eshopping.profile.UserProfileService.entity.RoleEnum;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+@Entity
+public class UserProfile {
 
-public class UserProfileDTO {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int profileId;
 
-	@NotEmpty(message = "Full name cannot be empty")
-	@Size(min = 3, max = 50, message = "Full name must be between 3 and 50 characters")
 	private String fullName;
 
 	private String image;
 
-	@NotNull(message = "Email cannot be null")
-	@Email(message = "Email should be valid")
 	private String emailId;
 
-	@NotNull(message = "Mobile number cannot be null")
 	private Long mobileNumber;
 
 	private String about;
 
-	@NotNull(message = "Date of birth cannot be null")
 	private LocalDate dateOfBirth;
 
-	@NotNull(message = "Gender cannot be null")
 	private String gender;
 
-	@NotNull(message = "Role cannot be null")
-	private RoleEnum role; // Role Enum validation is handled automatically.
+	@Enumerated(EnumType.STRING) // To store enum as string in the database
+	private RoleEnum role; // Changed to RoleEnum
 
-	@NotEmpty(message = "Password cannot be empty")
-	@Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
 	private String password;
 
-	private List<AddressDTO> addresses; // Assuming you have an AddressDTO as well.
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Address> addresses;
 
-	// Getters and setters
+	// Constructors, getters, and setters
+
+	public UserProfile(int profileId, String fullName, String image, String emailId, Long mobileNumber, String about,
+			LocalDate dateOfBirth, String gender, RoleEnum role, String password, List<Address> addresses) {
+		this.profileId = profileId;
+		this.fullName = fullName;
+		this.image = image;
+		this.emailId = emailId;
+		this.mobileNumber = mobileNumber;
+		this.about = about;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.role = role;
+		this.password = password;
+		this.addresses = addresses;
+	}
+
+	public UserProfile() {
+	}
 
 	public int getProfileId() {
 		return profileId;
@@ -126,11 +141,11 @@ public class UserProfileDTO {
 		this.password = password;
 	}
 
-	public List<AddressDTO> getAddresses() {
+	public List<Address> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(List<AddressDTO> addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 }

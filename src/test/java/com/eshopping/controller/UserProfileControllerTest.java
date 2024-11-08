@@ -1,5 +1,5 @@
 
-package com.eshopping.profile.UserProfileService.test;
+package com.eshopping.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -25,13 +25,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.eshopping.profile.UserProfileService.controller.UserProfileController;
-import com.eshopping.profile.UserProfileService.dto.UserProfileDTO;
-import com.eshopping.profile.UserProfileService.entity.UserProfile;
-import com.eshopping.profile.UserProfileService.service.UserProfileServiceImpl;
+import com.eshopping.controller.UserProfileController;
+import com.eshopping.dto.UserProfileDTO;
+import com.eshopping.entity.UserProfile;
+import com.eshopping.service.UserProfileServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) // Initialization
 public class UserProfileControllerTest {
 
 	private MockMvc mockMvc;
@@ -87,38 +87,6 @@ public class UserProfileControllerTest {
 	}
 
 	@Test
-	public void testUpdateProfile() throws Exception {
-		int profileId = 1;
-		UserProfile userProfile = new UserProfile();
-		userProfile.setProfileId(profileId);
-		userProfile.setFullName("Updated Name");
-		userProfile.setEmailId("updated.email@example.com");
-
-		doNothing().when(userProfileService).updateProfile(any(UserProfile.class));
-
-		mockMvc.perform(put("/api/userprofiles/{profileId}", profileId).contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(userProfile))).andExpect(status().isNoContent());
-
-		verify(userProfileService, times(1)).updateProfile(any(UserProfile.class));
-	}
-
-//	@Test
-//	public void testUpdateProfile_ProfileNotFound() throws Exception {
-//		int profileId = 999; // Non-existent profile ID
-//		UserProfile userProfile = new UserProfile();
-//		userProfile.setProfileId(profileId);
-//		userProfile.setFullName("Non-existent Profile");
-//		userProfile.setEmailId("nonexistent.email@example.com");
-//
-//		doNothing().when(userProfileService).updateProfile(any(UserProfile.class));
-//
-//		mockMvc.perform(put("/api/userprofiles/{profileId}", profileId).contentType(MediaType.APPLICATION_JSON)
-//				.content(objectMapper.writeValueAsString(userProfile))).andExpect(status().isNotFound());
-//
-//		verify(userProfileService, times(1)).updateProfile(any(UserProfile.class));
-//	}
-
-	@Test
 	public void testUpdateProfile_Success() throws Exception {
 		int profileId = 1;
 		UserProfile userProfile = new UserProfile();
@@ -126,7 +94,6 @@ public class UserProfileControllerTest {
 		userProfile.setFullName("Updated Name");
 		userProfile.setEmailId("updated.email@example.com");
 
-		// Mocking the updateProfile call
 		doNothing().when(userProfileService).updateProfile(any(UserProfile.class));
 
 		mockMvc.perform(put("/api/userprofiles/{profileId}", profileId).contentType(MediaType.APPLICATION_JSON)
@@ -141,8 +108,8 @@ public class UserProfileControllerTest {
 	public void testDeleteProfile() throws Exception {
 		int profileId = 1;
 
+		doNothing().when(userProfileService).deleteProfile(profileId);
 		mockMvc.perform(delete("/api/userprofiles/{profileId}", profileId)).andExpect(status().isNoContent());
-
 		verify(userProfileService, times(1)).deleteProfile(profileId);
 	}
 

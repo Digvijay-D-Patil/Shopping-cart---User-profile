@@ -1,4 +1,4 @@
-package com.eshopping.profile.UserProfileService.entity;
+package com.eshopping.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

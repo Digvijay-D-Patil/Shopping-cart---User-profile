@@ -1,9 +1,9 @@
-package com.eshopping.profile.UserProfileService.dao;
+package com.eshopping.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.eshopping.profile.UserProfileService.entity.UserProfile;
+import com.eshopping.entity.UserProfile;
 
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfile, Integer> {

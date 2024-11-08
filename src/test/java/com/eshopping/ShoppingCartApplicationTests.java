@@ -1,4 +1,4 @@
-package com.eshopping.profile.UserProfileService.test;
+package com.eshopping;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

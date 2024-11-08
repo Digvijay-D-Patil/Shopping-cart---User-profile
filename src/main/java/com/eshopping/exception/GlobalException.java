@@ -1,4 +1,4 @@
-package com.eshopping.profile.UserProfileService.exception;
+package com.eshopping.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
